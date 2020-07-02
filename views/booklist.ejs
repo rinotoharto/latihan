@@ -1,0 +1,28 @@
+<%- include('./partials/header') %>
+<div class="container">
+  <h3>Book List</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Author Name</th>
+        <th scope="col">Book Name</th>
+        <th scope="col">Stocks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.forEach((el,index) => { %>
+      <tr>
+        <td><%= index + 1 %> </td>
+        <td><%= el.author_name %> </td>
+        <td><%= el.book_name %> </td>
+        <td><%= el.stocks %> </td>
+        <td>
+          <a href="/books/buy/<%= el.id %>" class="btn btn-success"> Buy Books</a>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('./partials/footer') %>
