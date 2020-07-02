@@ -16,7 +16,9 @@
         <td><%= el.booksProfile %> </td>
         <td><%= el.stocks %> </td>
         <td>
-          <a href="/books/buy/<%= el.id %>" class="btn btn-success"> Buy Books</a>
+          <form action="/account" method="POST">
+            <button value="<%= el.id %> " href="/accounts" class="btn btn-success">Buy Books</button>
+          </form>
         </td>
       </tr>
       <% }) %>

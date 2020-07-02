@@ -20,7 +20,8 @@
   {
     "author_name": "Sue Monk Kidd",
     "book_name": "The Secret Life of Bees",
-    "stocks": 10
+    "stocks": 10,
+    "img_url": "https://images-na.ssl-images-amazon.com/images/I/51ZWC3V5R1L._SX309_BO1,204,203,200_.jpg"
   },
   {
     "author_name": "Khaled Hosseini",

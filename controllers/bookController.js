@@ -27,6 +27,30 @@ class bookController {
       })
   }
 
+  static createNewTrans(req, res) {
+    const UserId = +req.params.id
+    const BookId = req.body
+    let newTransaction;
+    let newData;
+    Transaction.create({
+      BookId,
+      UserId
+    })
+      .then(data => {
+        newTransaction = data
+        res.send(newTransaction);
+
+        // return Transaction.findAll({ include: Book })
+      })
+      // .then((data) => {
+      //   newData = data
+      //   res.send({ newData, newTransaction })
+      //   // res.render('./account', { data })
+      // })
+      .catch(err => {
+        res.send(err)
+      })
+  }
 
 }
 module.exports = bookController
