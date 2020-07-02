@@ -9,6 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+
+    get booksProfile() {
+      return `${this.book_name} by ${this.author_name}`
+    }
+
     static associate(models) {
       // define association here
       Book.belongsToMany(models.User, { through: 'Transactions' })
@@ -17,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
   Book.init({
     author_name: DataTypes.STRING,
     book_name: DataTypes.STRING,
-    stocks: DataTypes.INTEGER
+    stocks: DataTypes.INTEGER,
+    img_url: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Book',

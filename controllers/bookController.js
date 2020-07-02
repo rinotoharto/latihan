@@ -2,7 +2,7 @@ const { Book, Transaction, User } = require('../models/index')
 
 class bookController {
   static list(req, res) {
-    Book.findAll({ include: Transaction })
+    Book.findAll()
       .then(data => {
         res.render('./booklist.ejs', { data })
       })
