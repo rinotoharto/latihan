@@ -7,10 +7,18 @@ class loginController {
   }
 
   static postLogin(req, res) {
-    let { email, password } = req.body  // ini sesuain sama yg ada di data tabelnya mas
-    User.findAll({ email, password })
-      .then(dataUser => {
-        res.redirect('/account', { dataUser })  //ini mengarah ke halaman user yg isi nya menampilkan data user atau profil
+    User.findOne({where:{ email: req.body.email }})
+    .then(user => {
+      if(user) {
+        if(user.email == req.body.email) {
+          req.session.userId = user.id
+          res.redirect(`/books`)  //ini mengarah ke halaman user yg isi nya menampilkan data user atau profil
+        } else {
+          console.log('invalid password / email')
+        }
+      } else {
+        console.log(' user not found')
+      }
       })
       .catch(err => {
         res.send(err)

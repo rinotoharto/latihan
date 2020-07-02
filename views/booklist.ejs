@@ -7,6 +7,7 @@
         <th scope="col">Item</th>
         <th scope="col">Books Name</th>
         <th scope="col">Stocks</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -17,7 +18,9 @@
         <td><%= el.stocks %> </td>
         <td>
           <form action="/account" method="POST">
-            <button value="<%= el.id %> " href="/accounts" class="btn btn-success">Buy Books</button>
+            <input name="amount" type="number" placeholder="amount" min="1" max="<%= el.stocks%>">
+            <input name="bookId" value="<%= el.id %>" hidden>
+            <button type="submit" value="<%= el.id %>" class="btn btn-success">Buy Books</button>
           </form>
         </td>
       </tr>
