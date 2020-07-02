@@ -3,52 +3,63 @@ const {Transaction, Book, User} = require('../models')
 class AccountController {
 
   static showTransaction(req, res) {
-    Transaction.findAll({
+    User.findOne({
       include: [{model : Book}],
       where : {
-          UserId: req.session.userId
+          id: req.session.userId
       }
-    })
-    .then(data => {
-      console.log(data)
-      res.render('account', {data})
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  })
+  .then( data => {
+      res.render('./account.ejs', { data })
+  })
+  .catch( err => {
+      res.send(err)
+  })
   }
 
   static addTransaction(req, res) {
-    const {bookId, amount} = req.body
+    const bookId = +req.body.bookId
     let dataTrans = {
       BookId : bookId,
       UserId : req.session.userId,
-      amount
     }
     Book.findByPk(bookId)
     .then(book => {
-      if(book.stocks == 0 || book.stocks < amount) {
-        console.log('Invalid amount request')
+      const total = book.stocks-1
+      if(book.stocks == 0) {
+        console.log('Out of stock')
       } else {
-        return Transaction.findOne({where:{BookId : bookId, UserId: req.session.userId}})
-      }
-    })
-    .then(trans => {
-      if(trans) {
-        return Transaction.update({
-          amount: Number(amount) + Number(req.body.amount)
+        return Book.update({
+          stocks: total
         }, {
           where: {
-            BookId: bookId,
-            UserId: req.session.userId
+            id: +bookId
           }
         })
-      } else {
-        Transaction.create(dataTrans)
       }
+    })
+    .then(data => {
+      console.log()
+      return Transaction.create(dataTrans)
     })
     .then(transaction => {
       res.redirect('/account')
+    })
+  }
+
+  static deleteTransaction(req, res) {
+    const id = +req.params.id
+    Transaction.destroy({where: {BookId:id}})
+    .then(() => {
+      return User.findOne({
+        include: [{model : Book}],
+        where : {
+            id: req.session.userId
+        }
+      })
+    })
+    .then(data => {
+      res.render('account', {data})
     })
   }
 

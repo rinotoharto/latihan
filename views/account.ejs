@@ -16,9 +16,7 @@
           <td><%= data.Books[i].book_name %> </td>
           <td><%= data.Books[i].author_name %> </td>
           <td>
-            <form action="/account" method="POST">
-              <button type="submit" value="" class="btn btn-success">Buy Books</button>
-            </form>
+              <a href="/account/cancel/<%= data.Books[i].Transactions.BookId %>" class="btn btn-success">Delete Transaction</button>
           </td>
         </tr>
         <% } %>
